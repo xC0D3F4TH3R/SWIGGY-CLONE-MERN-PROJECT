@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fc8019">
+  <meta name="description" content="Order your favorites, shop essentials, and discover great local restaurants with Swiggy.">
+  <title>Swiggy — Good food, good mood</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            swiggy: '#FC8019',
+            ink: '#282C3F',
+            mist: '#F4F5F7',
+            gold: '#F3C334'
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            card: '0 8px 26px rgba(40,44,63,.07)'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; }
+    html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+    body { font-family: 'DM Sans', sans-serif; }
+    .hide-scrollbar { scrollbar-width: none; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hero-pattern {
+      background-image: radial-gradient(circle at 8% 20%, rgba(255,255,255,.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 88% 75%, rgba(255,255,255,.13) 0 3px, transparent 4px);
+      background-size: 34px 34px, 52px 52px;
+    }
+    .hero-image-left { mask-image: linear-gradient(to right, #000 65%, transparent 100%); }
+    .hero-image-right { mask-image: linear-gradient(to left, #000 65%, transparent 100%); }
+    .menu-open { overflow: hidden; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body class="bg-white text-ink antialiased">
+  <header class="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur-md">
+    <div class="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-7 lg:h-[82px] lg:px-10">
+      <a href="#" class="flex shrink-0 items-center gap-2.5" aria-label="Swiggy home">
+        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-swiggy text-xl font-extrabold text-white shadow-md shadow-orange-200">S</span>
+        <span class="font-['Manrope'] text-[25px] font-extrabold tracking-[-1.5px] text-ink">swiggy<span class="text-swiggy">.</span></span>
+      </a>
+
+      <button id="mobile-location" class="flex min-w-0 flex-1 items-center gap-2 rounded-full bg-slate-50 px-3 py-2 text-left xl:hidden" aria-label="Choose delivery location">
+        <svg class="h-4 w-4 shrink-0 text-swiggy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span id="mobile-location-label" class="truncate text-xs font-bold">Set your location</span>
+        <svg class="ml-auto h-3 w-3 shrink-0 text-slate-500" viewBox="0 0 20 20" fill="currentColor"><path d="m5.5 7.5 4.5 4 4.5-4"/></svg>
+      </button>
+
+      <nav class="hidden items-center gap-8 xl:flex" aria-label="Main navigation">
+        <button id="desktop-location" class="flex items-center gap-2 text-left">
+          <span class="grid h-10 w-10 place-items-center rounded-full bg-orange-50 text-swiggy">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </span>
+          <span><span id="desktop-location-label" class="block text-sm font-bold">Add your location</span><span class="block text-xs text-slate-500">See what's nearby</span></span>
+          <svg class="h-3 w-3 text-swiggy" viewBox="0 0 20 20" fill="currentColor"><path d="m5.5 7.5 4.5 4 4.5-4"/></svg>
+        </button>
+        <a href="#services" class="text-sm font-semibold text-slate-600 transition hover:text-swiggy">Our services</a>
+        <a href="#restaurants" class="text-sm font-semibold text-slate-600 transition hover:text-swiggy">Restaurants</a>
+        <a href="#neighborhood-drop" class="text-sm font-semibold text-slate-600 transition hover:text-swiggy">Neighborhood Drop <span class="ml-1 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-700">NEW</span></a>
+      </nav>
+
+      <div class="hidden items-center gap-3 xl:flex">
+        <label class="flex w-52 items-center gap-2 rounded-full bg-slate-50 px-3 py-2.5 transition focus-within:ring-2 focus-within:ring-orange-200 lg:w-64">
+          <svg class="h-4 w-4 shrink-0 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="restaurant-search" class="w-full bg-transparent text-xs outline-none placeholder:text-slate-400" type="search" placeholder="Search restaurants or dishes" aria-label="Search restaurants or dishes">
+        </label>
+        <button id="desktop-sign-in" class="rounded-full border border-slate-200 px-5 py-2.5 text-sm font-bold transition hover:border-swiggy hover:text-swiggy">Sign in</button>
+        <button id="cart-button" class="flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-white transition hover:bg-swiggy">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L22 7H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+          Cart <span id="cart-count" class="grid h-5 min-w-5 place-items-center rounded-full bg-swiggy px-1 text-[10px]">0</span>
+        </button>
+      </div>
+      <div class="hidden shrink-0 items-center gap-2 md:flex xl:hidden">
+        <button id="tablet-search" class="grid h-10 w-10 place-items-center rounded-full bg-slate-50 text-ink" aria-label="Search food">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        </button>
+        <button id="tablet-sign-in" class="whitespace-nowrap rounded-full border border-slate-200 px-3 py-2 text-xs font-bold">Sign in</button>
+        <button id="tablet-cart" class="grid h-10 w-10 place-items-center rounded-full bg-ink text-white" aria-label="Cart">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L22 7H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+        </button>
+      </div>
+      <button id="mobile-search" class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-slate-50 text-ink md:hidden" aria-label="Search food">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      </button>
+    </div>
+    <div id="mobile-search-panel" class="hidden border-t border-slate-100 bg-white px-4 py-3 xl:hidden">
+      <label class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">
+        <svg class="h-5 w-5 shrink-0 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="mobile-restaurant-search" class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400" type="search" placeholder="Search restaurants or dishes" aria-label="Search restaurants or dishes">
+        <button id="close-mobile-search" class="text-xl text-slate-500" aria-label="Close search">×</button>
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <section class="relative isolate overflow-hidden bg-swiggy text-white">
+      <div class="hero-pattern absolute inset-0 -z-10 opacity-60"></div>
+      <img class="hero-image-left absolute -left-20 top-0 hidden h-full w-[27%] object-cover opacity-60 xl:block" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80" alt="" aria-hidden="true">
+      <img class="hero-image-right absolute -right-20 top-0 hidden h-full w-[27%] object-cover opacity-60 xl:block" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="" aria-hidden="true">
+      <div class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10 lg:py-[72px]">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[.15em]"><span class="h-2 w-2 animate-pulse rounded-full bg-green-300"></span> Your neighborhood, delivered</p>
+          <h1 class="font-['Manrope'] text-[34px] font-extrabold leading-[1.13] tracking-[-1.5px] sm:text-5xl lg:text-[60px]">Good food.<br class="sm:hidden"> Great mood. <span class="text-[#FFE28A]">Swiggy it.</span></h1>
+          <p class="mx-auto mt-4 max-w-xl text-sm leading-6 text-orange-50 sm:text-base">The meals you love, your everyday essentials, and little local discoveries — all just a few taps away.</p>
+
+          <div class="relative mx-auto mt-7 max-w-[690px]">
+            <form id="location-form" class="flex flex-col gap-2 rounded-[20px] bg-white p-2 text-left shadow-2xl shadow-orange-900/20 sm:flex-row">
+              <div class="relative flex min-w-0 flex-1 items-center">
+                <svg class="ml-3 h-5 w-5 shrink-0 text-swiggy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <input id="location-input" class="h-12 min-w-0 flex-1 bg-transparent px-3 text-sm font-semibold text-ink outline-none placeholder:font-normal placeholder:text-slate-400" placeholder="Enter your delivery location" autocomplete="off" aria-label="Delivery location" aria-expanded="false" aria-controls="location-suggestions">
+                <button id="detect-location" type="button" class="mr-2 whitespace-nowrap rounded-lg px-2 py-2 text-xs font-bold text-swiggy transition hover:bg-orange-50">Detect location</button>
+              </div>
+              <button type="submit" class="flex h-12 items-center justify-center gap-2 rounded-[14px] bg-ink px-6 text-sm font-bold text-white transition hover:bg-slate-700 sm:min-w-[155px]">
+                Find food <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </button>
+            </form>
+            <div id="location-suggestions" class="absolute left-0 right-0 top-full z-30 mt-2 hidden overflow-hidden rounded-2xl bg-white text-left shadow-xl" role="listbox" aria-label="Suggested locations"></div>
+          </div>
+          <p id="location-message" class="mt-2 min-h-5 text-xs font-medium text-orange-50" aria-live="polite"></p>
+
+          <div class="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-2 sm:grid-cols-4">
+            <a href="#restaurants" class="group flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/10 p-3 text-left backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/20">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-lg">🍛</span><span><b class="block text-xs">Food</b><small class="text-[10px] text-orange-100">From ₹99</small></span>
+            </a>
+            <a href="#instamart-products" class="group flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/10 p-3 text-left backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/20">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-lg">🥑</span><span><b class="block text-xs">Instamart</b><small class="text-[10px] text-orange-100">10 min delivery</small></span>
+            </a>
+            <a href="#dineout" class="group flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/10 p-3 text-left backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/20">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-lg">🍽️</span><span><b class="block text-xs">Dineout</b><small class="text-[10px] text-orange-100">Up to 50% off</small></span>
+            </a>
+            <a href="#genie" class="group flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/10 p-3 text-left backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/20">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-lg">📦</span><span><b class="block text-xs">Genie</b><small class="text-[10px] text-orange-100">Pick & drop</small></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10 lg:py-[72px]">
+      <div class="mb-6 flex items-end justify-between gap-3 sm:mb-8">
+        <div><p class="mb-1 text-xs font-bold uppercase tracking-[.14em] text-swiggy">One app. So many ways.</p><h2 class="font-['Manrope'] text-2xl font-extrabold tracking-tight sm:text-3xl">Your day, made easier</h2></div>
+        <span class="hidden text-sm text-slate-500 sm:block">Tap into what you need</span>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <a href="#restaurants" class="group relative min-h-[205px] overflow-hidden rounded-[24px] bg-[#FFF1E5] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-h-[235px]">
+          <span class="inline-flex rounded-full bg-white px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-swiggy">Food delivery</span><h3 class="mt-4 max-w-[190px] font-['Manrope'] text-xl font-extrabold leading-tight">A little joy, delivered.</h3><p class="mt-1 text-sm font-bold text-swiggy">Up to 60% OFF on top brands</p><span class="mt-5 inline-flex items-center gap-1 text-xs font-bold text-ink">Order now <span aria-hidden="true">→</span></span>
+          <img class="absolute -bottom-3 -right-3 h-32 w-32 rounded-full object-cover shadow-lg transition duration-500 group-hover:scale-110 sm:h-40 sm:w-40" src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=500&q=80" alt="Freshly baked pizza" loading="lazy">
+        </a>
+        <a id="instamart" href="#instamart-products" class="group relative min-h-[205px] overflow-hidden rounded-[24px] bg-[#EAF7EF] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-h-[235px]">
+          <span class="inline-flex rounded-full bg-white px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-green-700">Instamart</span><h3 class="mt-4 max-w-[190px] font-['Manrope'] text-xl font-extrabold leading-tight">Forgot the groceries?</h3><p class="mt-1 text-sm font-bold text-green-700">Groceries delivered in 10 minutes</p><span class="mt-5 inline-flex items-center gap-1 text-xs font-bold text-ink">Shop essentials <span aria-hidden="true">→</span></span>
+          <img class="absolute -bottom-3 -right-3 h-32 w-32 rounded-full object-cover shadow-lg transition duration-500 group-hover:scale-110 sm:h-40 sm:w-40" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80" alt="Colorful fresh vegetables" loading="lazy">
+        </a>
+        <a id="dineout" href="#restaurants" class="group relative min-h-[205px] overflow-hidden rounded-[24px] bg-[#F0EDFF] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-h-[235px]">
+          <span class="inline-flex rounded-full bg-white px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-violet-700">Dineout</span><h3 class="mt-4 max-w-[190px] font-['Manrope'] text-xl font-extrabold leading-tight">Make tonight a plan.</h3><p class="mt-1 text-sm font-bold text-violet-700">Book a table & save up to 50%</p><span class="mt-5 inline-flex items-center gap-1 text-xs font-bold text-ink">Explore tables <span aria-hidden="true">→</span></span>
+          <img class="absolute -bottom-3 -right-3 h-32 w-32 rounded-full object-cover shadow-lg transition duration-500 group-hover:scale-110 sm:h-40 sm:w-40" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=80" alt="Warmly lit restaurant dining room" loading="lazy">
+        </a>
+        <a id="genie" href="#how-it-works" class="group relative min-h-[205px] overflow-hidden rounded-[24px] bg-[#FFF6D8] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-h-[235px]">
+          <span class="inline-flex rounded-full bg-white px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-amber-700">Genie</span><h3 class="mt-4 max-w-[190px] font-['Manrope'] text-xl font-extrabold leading-tight">Need it across town?</h3><p class="mt-1 text-sm font-bold text-amber-700">Send packages anywhere in the city</p><span class="mt-5 inline-flex items-center gap-1 text-xs font-bold text-ink">Send with Genie <span aria-hidden="true">→</span></span>
+          <div class="absolute -bottom-2 -right-1 grid h-32 w-32 place-items-center rounded-full bg-[#FFE9A7] text-6xl transition duration-500 group-hover:rotate-6 sm:h-40 sm:w-40" aria-hidden="true">🛵</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="border-y border-slate-100 bg-[#FCFCFD]">
+      <div class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10">
+        <div class="mb-5 flex items-center justify-between">
+          <div><p class="mb-1 text-xs font-bold uppercase tracking-[.14em] text-swiggy">What are you craving?</p><h2 class="font-['Manrope'] text-2xl font-extrabold tracking-tight sm:text-3xl">Pick your kind of delicious</h2></div>
+          <div class="hidden gap-2 sm:flex"><button class="lane-prev grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition hover:bg-white" data-target="food-lane" aria-label="Scroll food categories left">←</button><button class="lane-next grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition hover:bg-white" data-target="food-lane" aria-label="Scroll food categories right">→</button></div>
+        </div>
+        <div id="food-lane" class="hide-scrollbar flex snap-x gap-3 overflow-x-auto pb-2">
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="pizza"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=250&q=80" alt="Pizza" loading="lazy"></span><span class="mt-2 block text-sm font-bold">Pizza</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="burger"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=250&q=80" alt="Burger" loading="lazy"></span><span class="mt-2 block text-sm font-bold">Burgers</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="biryani"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=250&q=80" alt="Biryani" loading="lazy"></span><span class="mt-2 block text-sm font-bold">Biryani</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="south indian dosa"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=250&q=80" alt="South Indian dosa" loading="lazy"></span><span class="mt-2 block text-sm font-bold">South Indian</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="cake dessert"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=250&q=80" alt="Chocolate cake" loading="lazy"></span><span class="mt-2 block text-sm font-bold">Cakes</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="north indian"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=250&q=80" alt="North Indian thali" loading="lazy"></span><span class="mt-2 block text-sm font-bold">North Indian</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="noodles chinese"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=250&q=80" alt="Noodles" loading="lazy"></span><span class="mt-2 block text-sm font-bold">Chinese</span></button>
+          <button class="category-tile min-w-[106px] snap-start text-center" data-search="wrap rolls"><span class="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-orange-50 shadow-sm"><img class="h-full w-full object-cover transition duration-300 hover:scale-110" src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=250&q=80" alt="Wrap" loading="lazy"></span><span class="mt-2 block text-sm font-bold">Rolls</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="restaurants" class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10 lg:py-[72px]">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div><p class="mb-1 text-xs font-bold uppercase tracking-[.14em] text-swiggy">Good things are close by</p><h2 class="font-['Manrope'] text-2xl font-extrabold tracking-tight sm:text-3xl">Popular near you</h2><p class="mt-1 text-sm text-slate-500">Fresh picks from the neighborhood</p></div>
+        <div class="hidden items-center gap-2 sm:flex"><button class="lane-prev grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition hover:bg-slate-50" data-target="restaurant-lane" aria-label="Scroll restaurants left">←</button><button class="lane-next grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition hover:bg-slate-50" data-target="restaurant-lane" aria-label="Scroll restaurants right">→</button></div>
+      </div>
+      <div class="hide-scrollbar mt-5 flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Filter restaurants">
+        <button class="filter-chip active whitespace-nowrap rounded-full border border-ink bg-ink px-4 py-2 text-xs font-bold text-white transition" data-filter="all">All picks</button>
+        <button class="filter-chip whitespace-nowrap rounded-full border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:border-ink" data-filter="fast">⚡ Fast delivery</button>
+        <button class="filter-chip whitespace-nowrap rounded-full border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:border-ink" data-filter="rating">★ Rating 4.0+</button>
+        <button class="filter-chip whitespace-nowrap rounded-full border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:border-ink" data-filter="veg">🌿 Pure veg</button>
+        <button class="filter-chip whitespace-nowrap rounded-full border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:border-ink" data-filter="offers">％ Offers</button>
+        <button class="filter-chip whitespace-nowrap rounded-full border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:border-ink" data-filter="budget">Under ₹300</button>
+      </div>
+      <div id="restaurant-lane" class="hide-scrollbar mt-4 grid snap-x grid-flow-col auto-cols-[78%] gap-4 overflow-x-auto pb-4 sm:auto-cols-[47%] lg:grid-flow-row lg:grid-cols-4 lg:auto-cols-auto lg:overflow-visible">
+        <article class="restaurant-card group min-w-0 snap-start overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-tags="fast rating offers budget" data-cuisine="pizza italian" data-keywords="pizza margherita italian pasta cheese" data-item="Margherita pizza" data-price="229" data-reviews="1280" data-eta="23">
+          <div class="relative h-44 overflow-hidden"><img class="h-full w-full object-cover transition duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=700&q=85" alt="Wood-fired Margherita pizza" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-extrabold text-ink">⚡ FAST DELIVERY</span><span class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-lg font-extrabold text-white">50% OFF UP TO ₹100</span><button class="add-to-cart absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white text-lg font-bold text-swiggy shadow transition hover:scale-110" aria-label="Add Pizza House to cart">+</button></div>
+          <div class="p-4"><div class="flex items-start justify-between gap-2"><h3 class="font-['Manrope'] text-base font-extrabold">Pizza House</h3><span class="flex shrink-0 items-center gap-1 rounded-full bg-green-700 px-2 py-1 text-[10px] font-bold text-white">★ 4.4</span></div><p class="mt-1 truncate text-xs text-slate-500">Italian, Pizza, Pasta</p><div class="mt-3 flex items-center justify-between text-xs font-semibold text-slate-600"><span>20–25 mins</span><span>₹250 for two</span></div></div>
+        </article>
+        <article class="restaurant-card group min-w-0 snap-start overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-tags="rating veg offers budget" data-cuisine="south indian dosa" data-keywords="dosa masala dosa idli south indian breakfast veg vegetarian" data-item="Masala dosa" data-price="119" data-reviews="2140" data-eta="28">
+          <div class="relative h-44 overflow-hidden"><img class="h-full w-full object-cover transition duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=700&q=85" alt="Crispy masala dosa with chutneys" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-extrabold text-ink">PURE VEG</span><span class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-lg font-extrabold text-white">₹125 OFF ABOVE ₹249</span><button class="add-to-cart absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white text-lg font-bold text-swiggy shadow transition hover:scale-110" aria-label="Add Bengaluru Tiffins to cart">+</button></div>
+          <div class="p-4"><div class="flex items-start justify-between gap-2"><h3 class="font-['Manrope'] text-base font-extrabold">Bengaluru Tiffins</h3><span class="flex shrink-0 items-center gap-1 rounded-full bg-green-700 px-2 py-1 text-[10px] font-bold text-white">★ 4.6</span></div><p class="mt-1 truncate text-xs text-slate-500">South Indian, Breakfast</p><div class="mt-3 flex items-center justify-between text-xs font-semibold text-slate-600"><span>25–30 mins</span><span>₹180 for two</span></div></div>
+        </article>
+        <article class="restaurant-card group min-w-0 snap-start overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-tags="fast rating offers" data-cuisine="biryani north indian" data-keywords="biryani chicken dum biryani mughlai kebab non veg non-veg" data-item="Chicken dum biryani" data-price="289" data-reviews="1860" data-eta="23">
+          <div class="relative h-44 overflow-hidden"><img class="h-full w-full object-cover transition duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=700&q=85" alt="Hyderabadi dum biryani" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-extrabold text-ink">BESTSELLER</span><span class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-lg font-extrabold text-white">20% OFF UP TO ₹150</span><button class="add-to-cart absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white text-lg font-bold text-swiggy shadow transition hover:scale-110" aria-label="Add Nizam's Kitchen to cart">+</button></div>
+          <div class="p-4"><div class="flex items-start justify-between gap-2"><h3 class="font-['Manrope'] text-base font-extrabold">Nizam's Kitchen</h3><span class="flex shrink-0 items-center gap-1 rounded-full bg-green-700 px-2 py-1 text-[10px] font-bold text-white">★ 4.3</span></div><p class="mt-1 truncate text-xs text-slate-500">Biryani, Mughlai, Kebabs</p><div class="mt-3 flex items-center justify-between text-xs font-semibold text-slate-600"><span>20–25 mins</span><span>₹320 for two</span></div></div>
+        </article>
+        <article class="restaurant-card group min-w-0 snap-start overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-tags="fast rating budget" data-cuisine="burger american" data-keywords="burger cheeseburger american fast food chicken non veg non-veg" data-item="Classic cheeseburger" data-price="179" data-reviews="940" data-eta="18">
+          <div class="relative h-44 overflow-hidden"><img class="h-full w-full object-cover transition duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=85" alt="Double cheeseburger and fries" loading="lazy"><span class="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-extrabold text-ink">⚡ FAST DELIVERY</span><span class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-lg font-extrabold text-white">FREE CLASSIC FRIES</span><button class="add-to-cart absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white text-lg font-bold text-swiggy shadow transition hover:scale-110" aria-label="Add Burger District to cart">+</button></div>
+          <div class="p-4"><div class="flex items-start justify-between gap-2"><h3 class="font-['Manrope'] text-base font-extrabold">Burger District</h3><span class="flex shrink-0 items-center gap-1 rounded-full bg-green-700 px-2 py-1 text-[10px] font-bold text-white">★ 4.1</span></div><p class="mt-1 truncate text-xs text-slate-500">Burgers, American, Fast Food</p><div class="mt-3 flex items-center justify-between text-xs font-semibold text-slate-600"><span>15–20 mins</span><span>₹280 for two</span></div></div>
+        </article>
+      </div>
+      <p id="no-results" class="hidden rounded-2xl bg-slate-50 p-8 text-center text-sm font-semibold text-slate-500">No restaurants match those filters. Try another craving.</p>
+    </section>
+
+    <section id="neighborhood-drop" class="bg-[#F4F5F7]">
+      <div class="mx-auto grid max-w-[1440px] gap-6 px-4 py-10 sm:px-7 sm:py-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-12 lg:px-10 lg:py-[72px]">
+        <div>
+          <p class="mb-2 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-green-800"><span class="h-2 w-2 rounded-full bg-green-600"></span> A smarter way to get it</p>
+          <h2 class="font-['Manrope'] text-3xl font-extrabold leading-tight tracking-[-1px] sm:text-4xl">Good things travel<br class="hidden sm:block"> better <span class="text-green-700">together.</span></h2>
+          <p class="mt-3 max-w-lg text-sm leading-6 text-slate-600 sm:text-base">Meet <b>Neighborhood Drop</b> — opt in to combine nearby orders into one scheduled delivery window. Fewer individual trips, a smaller delivery fee for each neighbor, and the same sealed, separate orders.</p>
+          <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-slate-700"><span class="rounded-full bg-white px-3 py-2">✓ Your order stays private</span><span class="rounded-full bg-white px-3 py-2">✓ Choose a 15-min window</span><span class="rounded-full bg-white px-3 py-2">✓ Leave any time before cutoff</span></div>
+          <p class="mt-3 max-w-lg text-[11px] leading-5 text-slate-500">A practical pilot: nearby orders can be grouped by delivery zone and chosen window, with savings applied only when a route qualifies. No need to share your cart or address with neighbors.</p>
+        </div>
+        <div class="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#153D32] via-[#174D3D] to-[#1D5A45] p-5 text-white shadow-xl sm:p-8">
+          <div class="absolute -right-10 -top-16 h-48 w-48 rounded-full border-[30px] border-white/5"></div>
+          <div class="relative">
+            <div class="flex items-center justify-between gap-3"><span class="rounded-full bg-white/15 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-green-100">Next shared drop · Today</span><span class="text-xs font-semibold text-green-100">Demo preview</span></div>
+            <h3 class="mt-5 font-['Manrope'] text-2xl font-extrabold">Maple Residency</h3><p class="mt-1 text-sm text-green-100">Koramangala · 6:30–6:45 PM</p>
+            <div class="mt-6 rounded-2xl bg-white/10 p-4">
+              <div class="mb-3 flex items-center justify-between text-xs"><span class="font-semibold">Drop capacity</span><span id="drop-slots-label" class="font-bold">2 of 4 neighbors joined</span></div>
+              <div class="h-2 overflow-hidden rounded-full bg-black/20"><div id="drop-progress" class="h-full w-1/2 rounded-full bg-[#F3C334] transition-all duration-500"></div></div>
+              <div class="mt-4 flex items-center justify-between gap-2"><div class="flex -space-x-2"><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-[#174D3D] bg-orange-200 text-xs">A</span><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-[#174D3D] bg-blue-200 text-xs">R</span><span id="drop-avatar" class="hidden h-8 w-8 place-items-center rounded-full border-2 border-[#174D3D] bg-yellow-200 text-xs">Y</span><span id="drop-empty" class="grid h-8 w-8 place-items-center rounded-full border-2 border-dashed border-white/60 text-xs text-white/60">+2</span></div><span class="text-right text-xs text-green-100">Delivery fee from <b class="text-white">₹0*</b></span></div>
+            </div>
+            <button id="join-drop" class="mt-4 w-full rounded-xl bg-[#F3C334] px-5 py-3.5 text-sm font-extrabold text-ink transition hover:bg-yellow-300">See if my area qualifies <span aria-hidden="true">→</span></button>
+            <p class="mt-3 text-center text-[10px] leading-4 text-green-100/80">*Illustrative pilot pricing. Eligibility and savings depend on your area and order timing.</p>
+            <p id="drop-message" class="mt-2 min-h-4 text-center text-xs font-bold text-yellow-200" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="instamart-products" class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10">
+      <div class="relative overflow-hidden rounded-[28px] bg-gradient-to-r from-[#24213B] via-[#452B4F] to-[#8B3E3F] p-6 text-white sm:p-10 lg:p-12">
+        <div class="absolute -right-10 -top-24 h-72 w-72 rounded-full bg-[#FC8019]/20 blur-3xl"></div>
+        <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+          <div class="max-w-2xl"><span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[.15em] text-[#FFD783]">The good stuff, on repeat</span><h2 class="mt-4 font-['Manrope'] text-3xl font-extrabold tracking-tight sm:text-4xl">Say hello to <span class="text-[#FFC45C]">Swiggy One.</span></h2><p class="mt-3 max-w-xl text-sm leading-6 text-white/75 sm:text-base">Free deliveries, exclusive member prices, and extra savings on your favorite restaurants. More of what you love, for less.</p>
+            <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-white/90"><span>✦ Free delivery on eligible orders</span><span>✦ Extra discounts, every day</span><span>✦ One membership across services</span></div></div>
+          <div class="flex flex-col items-start gap-3 md:items-end"><button id="one-cta" class="rounded-full bg-[#F3C334] px-6 py-3 text-sm font-extrabold text-ink shadow-lg transition hover:-translate-y-0.5 hover:bg-yellow-300">Try Swiggy One <span aria-hidden="true">→</span></button><span class="text-[10px] text-white/60">Terms and eligibility apply</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="bg-[#FFFAF5]">
+      <div class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10 lg:py-[72px]">
+        <div class="text-center"><p class="mb-1 text-xs font-bold uppercase tracking-[.14em] text-swiggy">From craving to doorstep</p><h2 class="font-['Manrope'] text-2xl font-extrabold tracking-tight sm:text-3xl">Good food is just 3 steps away</h2></div>
+        <div class="mx-auto mt-8 grid max-w-5xl gap-4 md:grid-cols-3">
+          <button class="step-card rounded-[22px] border-2 border-transparent bg-white p-5 text-left shadow-card transition hover:-translate-y-1 hover:border-orange-200 md:p-6" data-step="0"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-orange-100 text-xl">📍</span><span class="mt-4 block text-[10px] font-extrabold uppercase tracking-wider text-swiggy">Step 01</span><span class="mt-1 block font-['Manrope'] text-lg font-extrabold">Choose your location</span><span class="mt-1 block text-sm leading-5 text-slate-500">We’ll show the best picks that can reach your door.</span></button>
+          <button class="step-card rounded-[22px] border-2 border-transparent bg-white p-5 text-left shadow-card transition hover:-translate-y-1 hover:border-orange-200 md:p-6" data-step="1"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-yellow-100 text-xl">🍜</span><span class="mt-4 block text-[10px] font-extrabold uppercase tracking-wider text-swiggy">Step 02</span><span class="mt-1 block font-['Manrope'] text-lg font-extrabold">Pick your craving</span><span class="mt-1 block text-sm leading-5 text-slate-500">Explore local favorites, exciting offers, and more.</span></button>
+          <button class="step-card rounded-[22px] border-2 border-transparent bg-white p-5 text-left shadow-card transition hover:-translate-y-1 hover:border-orange-200 md:p-6" data-step="2"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-green-100 text-xl">🛵</span><span class="mt-4 block text-[10px] font-extrabold uppercase tracking-wider text-swiggy">Step 03</span><span class="mt-1 block font-['Manrope'] text-lg font-extrabold">We’re on our way</span><span class="mt-1 block text-sm leading-5 text-slate-500">Track your delivery and get ready for a happy meal.</span></button>
+        </div>
+        <p id="step-message" class="mt-4 text-center text-sm font-semibold text-swiggy" aria-live="polite">Start by setting your delivery location above.</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10">
+      <div class="grid overflow-hidden rounded-[28px] bg-[#FFF4E9] md:grid-cols-[1.1fr_.9fr]">
+        <div class="p-6 sm:p-9 lg:p-12"><p class="text-xs font-bold uppercase tracking-[.14em] text-swiggy">Stock up in a blink</p><h2 class="mt-2 font-['Manrope'] text-2xl font-extrabold sm:text-3xl">Little essentials.<br>Big time saved.</h2><p class="mt-3 max-w-md text-sm leading-6 text-slate-600">Fresh fruit for breakfast, chai-time snacks, and those just-ran-out basics — Instamart brings everyday goodness to your door.</p><div class="mt-5 flex flex-wrap gap-2"><span class="rounded-full bg-white px-3 py-2 text-xs font-semibold">🥬 Fresh vegetables</span><span class="rounded-full bg-white px-3 py-2 text-xs font-semibold">🍓 Seasonal fruits</span><span class="rounded-full bg-white px-3 py-2 text-xs font-semibold">🥛 Dairy & eggs</span><span class="rounded-full bg-white px-3 py-2 text-xs font-semibold">🍿 Munchies</span></div><a href="#services" class="mt-6 inline-flex rounded-full bg-swiggy px-5 py-3 text-sm font-extrabold text-white transition hover:bg-orange-600">Explore Instamart →</a></div>
+        <div class="relative min-h-[230px] overflow-hidden sm:min-h-[310px]"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1000&q=85" alt="Fresh produce at a local market" loading="lazy"><div class="absolute inset-0 bg-gradient-to-r from-[#FFF4E9] via-[#FFF4E9]/30 to-transparent md:bg-gradient-to-r"></div><div class="absolute bottom-5 right-5 rounded-2xl bg-white/95 p-4 shadow-xl"><span class="block text-[10px] font-bold uppercase tracking-wider text-green-700">At your door</span><span class="mt-1 block font-['Manrope'] text-xl font-extrabold">In ~10 min</span></div></div>
+      </div>
+    </section>
+
+    <section class="border-t border-slate-100 bg-white">
+      <div class="mx-auto max-w-4xl px-4 py-10 sm:px-7 sm:py-14">
+        <div class="mb-5 text-center"><p class="mb-1 text-xs font-bold uppercase tracking-[.14em] text-swiggy">A few quick answers</p><h2 class="font-['Manrope'] text-2xl font-extrabold tracking-tight sm:text-3xl">Good to know</h2></div>
+        <div class="divide-y divide-slate-200 rounded-2xl border border-slate-100 bg-white px-4 sm:px-6">
+          <details class="faq-item group py-4"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-bold sm:text-base">How do I find restaurants that deliver to me?<span class="faq-icon text-xl text-swiggy transition group-open:rotate-45">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-sm leading-6 text-slate-500">Enter your delivery location in the search box above. We’ll show nearby restaurants, current offers, and estimated delivery times for your area.</p></details>
+          <details class="faq-item group py-4"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-bold sm:text-base">What is Neighborhood Drop?<span class="faq-icon text-xl text-swiggy transition group-open:rotate-45">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-sm leading-6 text-slate-500">It’s a proposed opt-in shared delivery window for nearby orders. Orders remain individually packed and private. If a participating zone reaches its route threshold, eligible customers can receive a lower delivery fee. Availability and savings depend on location and timing.</p></details>
+          <details class="faq-item group py-4"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-bold sm:text-base">Can I order groceries and restaurant food in one app?<span class="faq-icon text-xl text-swiggy transition group-open:rotate-45">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-sm leading-6 text-slate-500">Yes. Explore restaurant delivery, groceries through Instamart, dining offers through Dineout, and local pick-up and drop with Genie, subject to availability in your area.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#F4F5F7] pb-24 md:pb-0">
+    <div class="mx-auto max-w-[1440px] px-4 py-10 sm:px-7 sm:py-12 lg:px-10">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr_1.2fr]">
+        <div><a href="#" class="flex items-center gap-2"><span class="grid h-9 w-9 place-items-center rounded-xl bg-swiggy font-extrabold text-white">S</span><span class="font-['Manrope'] text-xl font-extrabold tracking-tight">swiggy<span class="text-swiggy">.</span></span></a><p class="mt-3 text-xs leading-5 text-slate-500">© <span id="copyright-year"></span> Swiggy Limited<br>Made for good food days.</p></div>
+        <div><h3 class="mb-3 text-xs font-extrabold uppercase tracking-wider text-ink">Company</h3><ul class="space-y-2.5 text-sm text-slate-500"><li><a class="transition hover:text-swiggy" href="#">About us</a></li><li><a class="transition hover:text-swiggy" href="#">Careers</a></li><li><a class="transition hover:text-swiggy" href="#">Team</a></li><li><a class="transition hover:text-swiggy" href="#">Swiggy One</a></li></ul></div>
+        <div><h3 class="mb-3 text-xs font-extrabold uppercase tracking-wider text-ink">For you</h3><ul class="space-y-2.5 text-sm text-slate-500"><li><a class="transition hover:text-swiggy" href="#restaurants">Explore restaurants</a></li><li><a class="transition hover:text-swiggy" href="#instamart-products">Instamart</a></li><li><a class="transition hover:text-swiggy" href="#dineout">Dineout</a></li><li><a class="transition hover:text-swiggy" href="#genie">Genie</a></li></ul></div>
+        <div><h3 class="mb-3 text-xs font-extrabold uppercase tracking-wider text-ink">Partner with us</h3><ul class="space-y-2.5 text-sm text-slate-500"><li><a class="transition hover:text-swiggy" href="#">Restaurant partners</a></li><li><a class="transition hover:text-swiggy" href="#">Delivery partners</a></li><li><a class="transition hover:text-swiggy" href="#">Merchant support</a></li><li><a class="transition hover:text-swiggy" href="#">Help & support</a></li></ul></div>
+        <div><h3 class="mb-3 text-xs font-extrabold uppercase tracking-wider text-ink">Get the app</h3><p class="mb-3 text-sm text-slate-500">Your favorites are a tap away.</p><div class="flex flex-wrap gap-2"><a class="flex items-center gap-2 rounded-xl bg-ink px-3 py-2.5 text-white transition hover:bg-slate-700" href="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store"><span class="text-xl">◉</span><span class="text-[9px] leading-3"><span class="block">Download on the</span><b class="text-xs">App Store</b></span></a><a class="flex items-center gap-2 rounded-xl bg-ink px-3 py-2.5 text-white transition hover:bg-slate-700" href="https://play.google.com/store/apps/details?id=in.swiggy.android" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play"><span class="text-xl">▶</span><span class="text-[9px] leading-3"><span class="block">GET IT ON</span><b class="text-xs">Google Play</b></span></a></div></div>
+      </div>
+      <div class="mt-8 flex flex-col gap-3 border-t border-slate-200 pt-5 text-[11px] text-slate-500 sm:flex-row sm:items-center sm:justify-between"><span>Popular cities: Bengaluru · Mumbai · Hyderabad · Chennai · Delhi · Pune · Kolkata</span><div class="flex gap-4"><a class="hover:text-swiggy" href="#">Privacy</a><a class="hover:text-swiggy" href="#">Terms</a><a class="hover:text-swiggy" href="#">Cookie policy</a></div></div>
+      <div class="mt-7 flex flex-col gap-4 overflow-hidden rounded-[22px] bg-ink p-4 text-white shadow-card sm:flex-row sm:items-center sm:justify-between sm:p-5">
+        <div class="flex items-center gap-3.5">
+          <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#FC8019] to-[#F3C334] font-['Manrope'] text-sm font-extrabold tracking-tight text-ink shadow-lg shadow-orange-950/20" aria-hidden="true">AT<span class="sr-only">Aryan Tomar monogram</span></span>
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-[.16em] text-orange-300">Concept, crafted with care</p>
+            <p class="mt-0.5 font-['Manrope'] text-base font-extrabold sm:text-lg">Designed & built by <span class="text-[#FFC45C]">Aryan Tomar</span></p>
+            <p class="mt-0.5 text-xs text-white/65">CSE (AI) <span class="mx-1.5 text-white/30">·</span> 5th semester <span class="mx-1.5 text-white/30">·</span> MIET</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 pl-[62px] sm:max-w-[480px] sm:justify-end sm:pl-0" aria-label="Project highlights">
+          <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-white/80">Product-minded UX</span>
+          <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-white/80">Responsive engineering</span>
+          <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-white/80">Thoughtful interactions</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-3 pb-[max(.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md md:hidden" aria-label="Mobile navigation">
+    <div class="mx-auto flex max-w-lg items-center justify-around">
+      <a class="mobile-nav-link flex min-w-[58px] flex-col items-center gap-1 py-1 text-swiggy" href="#" data-nav="Home"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span class="text-[10px] font-bold">Home</span></a>
+      <a class="mobile-nav-link flex min-w-[58px] flex-col items-center gap-1 py-1 text-slate-400" href="#restaurants" data-nav="Offers"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3 13.2V3h10.2l7.4 7.4a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1"/></svg><span class="text-[10px] font-bold">Offers</span></a>
+      <button id="bottom-search" class="mobile-nav-link flex min-w-[58px] flex-col items-center gap-1 py-1 text-slate-400"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="text-[10px] font-bold">Search</span></button>
+      <button class="mobile-nav-link flex min-w-[58px] flex-col items-center gap-1 py-1 text-slate-400" data-nav="Account"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="text-[10px] font-bold">Account</span></button>
+    </div>
+  </nav>
+
+  <div id="toast" class="pointer-events-none fixed bottom-24 left-1/2 z-50 -translate-x-1/2 translate-y-3 rounded-full bg-ink px-5 py-3 text-xs font-bold text-white opacity-0 shadow-xl transition-all md:bottom-6" role="status" aria-live="polite"></div>
+
+  <div class="fixed bottom-[5.25rem] right-4 z-[45] md:bottom-6 md:right-6">
+    <button id="food-assistant-launcher" class="flex items-center gap-2 rounded-full bg-ink py-3 pl-3 pr-4 text-sm font-bold text-white shadow-xl shadow-ink/20 transition hover:-translate-y-0.5 hover:bg-swiggy focus:outline-none focus:ring-4 focus:ring-orange-200" aria-expanded="false" aria-controls="food-assistant-panel">
+      <span class="grid h-8 w-8 place-items-center rounded-full bg-white/15 text-base" aria-hidden="true">✦</span><span class="hidden sm:inline">Find my food</span><span class="sm:hidden">Food helper</span>
+    </button>
+    <section id="food-assistant-panel" class="absolute bottom-14 right-0 hidden w-[min(390px,calc(100vw-2rem))] overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-2xl shadow-ink/20 sm:w-[390px]" style="max-height: min(620px, calc(100dvh - 112px))" role="dialog" aria-modal="false" aria-labelledby="food-assistant-title">
+      <div class="flex items-start justify-between gap-3 bg-ink px-4 py-4 text-white">
+        <div class="flex items-start gap-3">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-swiggy to-gold text-lg text-ink">✦</span>
+          <div><h2 id="food-assistant-title" class="font-['Manrope'] text-sm font-extrabold">Smart food finder</h2><p class="mt-0.5 text-[10px] leading-4 text-white/70">Local matching · no account or external AI API</p></div>
+        </div>
+        <button id="food-assistant-close" class="grid h-8 w-8 shrink-0 place-items-center rounded-full text-xl text-white/70 transition hover:bg-white/10 hover:text-white" aria-label="Close food finder">×</button>
+      </div>
+      <div class="border-b border-amber-100 bg-amber-50 px-4 py-2 text-[10px] leading-4 text-amber-900">Demo catalog only. Prices, ratings and review counts are illustrative, not live Swiggy data.</div>
+      <div id="food-chat-log" class="hide-scrollbar space-y-3 overflow-y-auto bg-slate-50 p-4" style="max-height: min(365px, calc(100dvh - 335px))" role="log" aria-live="polite" aria-relevant="additions text">
+        <div class="max-w-[90%] rounded-2xl rounded-tl-sm bg-white p-3 text-xs leading-5 text-slate-700 shadow-sm">Hi! Tell me what you’re craving and I’ll compare matching restaurants by menu price, rating, delivery time and demo review volume.</div>
+        <div class="flex flex-wrap gap-2" aria-label="Try a suggestion">
+          <button class="assistant-prompt rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[10px] font-semibold text-slate-600 transition hover:border-swiggy hover:text-swiggy">Veg under ₹200</button>
+          <button class="assistant-prompt rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[10px] font-semibold text-slate-600 transition hover:border-swiggy hover:text-swiggy">Best biryani</button>
+          <button class="assistant-prompt rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[10px] font-semibold text-slate-600 transition hover:border-swiggy hover:text-swiggy">Cheapest burger</button>
+        </div>
+      </div>
+      <form id="food-chat-form" class="flex items-center gap-2 border-t border-slate-100 bg-white p-3">
+        <label class="sr-only" for="food-chat-input">Describe your food preferences</label>
+        <input id="food-chat-input" class="min-w-0 flex-1 rounded-xl bg-slate-100 px-3 py-3 text-xs outline-none transition placeholder:text-slate-400 focus:ring-2 focus:ring-orange-200" maxlength="160" placeholder="e.g. Veg meal under ₹250, highly rated" autocomplete="off">
+        <button class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-swiggy text-white transition hover:bg-orange-600" type="submit" aria-label="Get food recommendations"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const locationInput = document.getElementById('location-input');
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    const suggestions = document.getElementById('location-suggestions');
+    const locationMessage = document.getElementById('location-message');
+    const sampleLocations = [
+      { title: 'Indiranagar', detail: 'Bengaluru, Karnataka' },
+      { title: 'Koramangala', detail: 'Bengaluru, Karnataka' },
+      { title: 'HSR Layout', detail: 'Bengaluru, Karnataka' },
+      { title: 'Whitefield', detail: 'Bengaluru, Karnataka' },
+      { title: 'Jubilee Hills', detail: 'Hyderabad, Telangana' },
+      { title: 'Andheri West', detail: 'Mumbai, Maharashtra' }
+    ];
+
+    function setLocation(name) {
+      locationInput.value = name;
+      document.getElementById('desktop-location-label').textContent = name;
+      document.getElementById('mobile-location-label').textContent = name;
+      suggestions.classList.add('hidden');
+      locationInput.setAttribute('aria-expanded', 'false');
+      locationMessage.textContent = `Showing great picks near ${name}.`;
+      document.getElementById('step-message').textContent = `${name} selected — now find your next favorite.`;
+      document.getElementById('restaurants').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderSuggestions(query = '') {
+      const normalized = query.trim().toLowerCase();
+      const matches = sampleLocations.filter(location => `${location.title} ${location.detail}`.toLowerCase().includes(normalized)).slice(0, 5);
+      suggestions.innerHTML = '';
+      matches.forEach(location => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.setAttribute('role', 'option');
+        option.className = 'flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-orange-50';
+        option.innerHTML = '<span class="grid h-9 w-9 place-items-center rounded-full bg-orange-50 text-swiggy">⌖</span><span><b class="block text-sm text-ink"></b><small class="text-xs text-slate-500"></small></span>';
+        option.querySelector('b').textContent = location.title;
+        option.querySelector('small').textContent = location.detail;
+        option.addEventListener('click', () => setLocation(location.title));
+        suggestions.appendChild(option);
+      });
+      suggestions.classList.toggle('hidden', matches.length === 0);
+      locationInput.setAttribute('aria-expanded', String(matches.length > 0));
+    }
+
+    locationInput.addEventListener('focus', () => renderSuggestions(locationInput.value));
+    locationInput.addEventListener('input', () => renderSuggestions(locationInput.value));
+    document.addEventListener('click', event => {
+      if (!event.target.closest('#location-form') && !event.target.closest('#location-suggestions')) {
+        suggestions.classList.add('hidden');
+        locationInput.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.getElementById('location-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const value = locationInput.value.trim();
+      if (value) setLocation(value);
+      else {
+        renderSuggestions('');
+        locationMessage.textContent = 'Choose a location to see restaurants that deliver to you.';
+        locationInput.focus();
+      }
+    });
+    document.getElementById('detect-location').addEventListener('click', () => {
+      if (!('geolocation' in navigator)) {
+        locationMessage.textContent = 'Location detection is not supported by this browser. Try a nearby area instead.';
+        return;
+      }
+      locationMessage.textContent = 'Requesting your location…';
+      navigator.geolocation.getCurrentPosition(
+        () => {
+          locationMessage.textContent = 'Location detected. Choose your neighborhood from the suggestions to continue.';
+          renderSuggestions('');
+          locationInput.focus();
+        },
+        error => {
+          locationMessage.textContent = error.code === error.PERMISSION_DENIED
+            ? 'Location access was declined. Enter your area to see nearby picks.'
+            : 'Could not detect your location. Enter your area to continue.';
+        },
+        { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 }
+      );
+    });
+    document.getElementById('desktop-location').addEventListener('click', () => {
+      document.getElementById('location-input').focus();
+      document.getElementById('location-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      renderSuggestions('');
+    });
+    document.getElementById('mobile-location').addEventListener('click', () => {
+      document.getElementById('location-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      locationInput.focus();
+      renderSuggestions('');
+    });
+
+    const restaurantCards = [...document.querySelectorAll('.restaurant-card')];
+    let activeFilter = 'all';
+    let searchQuery = '';
+    function updateRestaurants() {
+      let visible = 0;
+      restaurantCards.forEach(card => {
+        const tags = card.dataset.tags.split(' ');
+        const searchable = `${card.querySelector('h3').textContent} ${card.dataset.cuisine} ${card.querySelector('.text-slate-500').textContent}`.toLowerCase();
+        const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+        const matchesSearch = !searchQuery || searchable.includes(searchQuery);
+        const show = matchesFilter && matchesSearch;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.getElementById('no-results').classList.toggle('hidden', visible !== 0);
+    }
+    document.querySelectorAll('.filter-chip').forEach(button => button.addEventListener('click', () => {
+      activeFilter = button.dataset.filter;
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.classList.remove('active', 'border-ink', 'bg-ink', 'text-white');
+        chip.classList.add('border-slate-200', 'text-slate-600');
+      });
+      button.classList.add('active', 'border-ink', 'bg-ink', 'text-white');
+      button.classList.remove('border-slate-200', 'text-slate-600');
+      updateRestaurants();
+    }));
+
+    const desktopSearch = document.getElementById('restaurant-search');
+    const mobileSearchInput = document.getElementById('mobile-restaurant-search');
+    function applySearch(value) {
+      searchQuery = value.trim().toLowerCase();
+      if (desktopSearch.value !== value) desktopSearch.value = value;
+      if (mobileSearchInput.value !== value) mobileSearchInput.value = value;
+      updateRestaurants();
+    }
+    desktopSearch.addEventListener('input', () => applySearch(desktopSearch.value));
+    mobileSearchInput.addEventListener('input', () => applySearch(mobileSearchInput.value));
+    function openMobileSearch() {
+      const panel = document.getElementById('mobile-search-panel');
+      panel.classList.remove('hidden');
+      mobileSearchInput.focus();
+    }
+    document.getElementById('mobile-search').addEventListener('click', openMobileSearch);
+    document.getElementById('tablet-search').addEventListener('click', () => {
+      document.getElementById('mobile-search-panel').classList.remove('hidden');
+      mobileSearchInput.focus();
+    });
+    document.getElementById('bottom-search').addEventListener('click', () => {
+      openMobileSearch();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('close-mobile-search').addEventListener('click', () => {
+      document.getElementById('mobile-search-panel').classList.add('hidden');
+      mobileSearchInput.blur();
+    });
+    document.querySelectorAll('.category-tile').forEach(tile => tile.addEventListener('click', () => {
+      searchQuery = tile.dataset.search.split(' ')[0];
+      desktopSearch.value = searchQuery;
+      mobileSearchInput.value = searchQuery;
+      activeFilter = 'all';
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.classList.remove('active', 'border-ink', 'bg-ink', 'text-white');
+        chip.classList.add('border-slate-200', 'text-slate-600');
+      });
+      document.querySelector('[data-filter="all"]').classList.add('active', 'border-ink', 'bg-ink', 'text-white');
+      updateRestaurants();
+      document.getElementById('restaurants').scrollIntoView({ behavior: 'smooth' });
+    }));
+
+    document.querySelectorAll('.lane-next, .lane-prev').forEach(button => button.addEventListener('click', () => {
+      const lane = document.getElementById(button.dataset.target);
+      lane.scrollBy({ left: button.classList.contains('lane-next') ? lane.clientWidth * .75 : -lane.clientWidth * .75, behavior: 'smooth' });
+    }));
+
+    let cartCount = 0;
+    document.querySelectorAll('.add-to-cart').forEach(button => button.addEventListener('click', () => {
+      cartCount++;
+      document.getElementById('cart-count').textContent = cartCount;
+      showToast(`Added to your cart · ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`);
+    }));
+    document.getElementById('cart-button').addEventListener('click', () => showToast(cartCount ? `You have ${cartCount} ${cartCount === 1 ? 'item' : 'items'} in your cart.` : 'Your cart is waiting for something delicious.'));
+    document.getElementById('tablet-cart').addEventListener('click', () => showToast(cartCount ? `You have ${cartCount} ${cartCount === 1 ? 'item' : 'items'} in your cart.` : 'Your cart is waiting for something delicious.'));
+    document.getElementById('tablet-sign-in').addEventListener('click', () => showToast('Sign in is coming soon.'));
+    document.getElementById('desktop-sign-in').addEventListener('click', () => showToast('Sign in is coming soon.'));
+    document.getElementById('one-cta').addEventListener('click', () => showToast('Swiggy One membership details are coming soon.'));
+    document.querySelectorAll('.step-card').forEach((card, index) => card.addEventListener('click', () => {
+      const messages = ['Step 1: set your location above to see nearby delivery options.', 'Step 2: browse the restaurant cards and choose a craving.', 'Step 3: place an order and track it right to your door.'];
+      document.getElementById('step-message').textContent = messages[index];
+      document.querySelectorAll('.step-card').forEach(item => item.classList.remove('border-orange-300'));
+      card.classList.add('border-orange-300');
+    }));
+
+    let hasJoinedDrop = false;
+    document.getElementById('join-drop').addEventListener('click', () => {
+      if (!locationInput.value.trim()) {
+        document.getElementById('drop-message').textContent = 'Set your delivery area first to check eligibility.';
+        document.getElementById('location-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        locationInput.focus();
+        return;
+      }
+      hasJoinedDrop = !hasJoinedDrop;
+      const joinedCount = hasJoinedDrop ? 3 : 2;
+      document.getElementById('drop-slots-label').textContent = `${joinedCount} of 4 neighbors joined`;
+      document.getElementById('drop-progress').style.width = `${joinedCount * 25}%`;
+      document.getElementById('drop-avatar').classList.toggle('hidden', !hasJoinedDrop);
+      document.getElementById('drop-avatar').classList.toggle('grid', hasJoinedDrop);
+      document.getElementById('drop-empty').textContent = hasJoinedDrop ? '+1' : '+2';
+      document.getElementById('join-drop').innerHTML = hasJoinedDrop ? 'Leave this demo drop <span aria-hidden="true">↗</span>' : 'See if my area qualifies <span aria-hidden="true">→</span>';
+      document.getElementById('drop-message').textContent = hasJoinedDrop
+        ? 'You joined the demo drop. In a live service, we’d verify your zone and confirm before checkout.'
+        : 'You left the demo drop. No order or payment was created.';
+    });
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('translate-y-3', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-3', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2400);
+    }
+
+    const assistantPanel = document.getElementById('food-assistant-panel');
+    const assistantLauncher = document.getElementById('food-assistant-launcher');
+    const chatLog = document.getElementById('food-chat-log');
+    const chatInput = document.getElementById('food-chat-input');
+    function setAssistantOpen(open) {
+      assistantPanel.classList.toggle('hidden', !open);
+      assistantLauncher.setAttribute('aria-expanded', String(open));
+      if (open) chatInput.focus();
+    }
+    assistantLauncher.addEventListener('click', () => setAssistantOpen(assistantPanel.classList.contains('hidden')));
+    document.getElementById('food-assistant-close').addEventListener('click', () => setAssistantOpen(false));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !assistantPanel.classList.contains('hidden')) setAssistantOpen(false);
+    });
+
+    function addChatMessage(text, sender) {
+      const message = document.createElement('div');
+      message.className = sender === 'user'
+        ? 'ml-auto max-w-[88%] rounded-2xl rounded-tr-sm bg-swiggy px-3 py-2.5 text-xs leading-5 text-white'
+        : 'max-w-[94%] rounded-2xl rounded-tl-sm bg-white p-3 text-xs leading-5 text-slate-700 shadow-sm';
+      message.textContent = text;
+      chatLog.appendChild(message);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function getFoodPreferences(query) {
+      const text = query.toLowerCase();
+      const categories = [
+        { match: /\b(pizza|margherita|pasta)\b/, keywords: ['pizza', 'italian'] },
+        { match: /\b(burger|cheeseburger)\b/, keywords: ['burger', 'american'] },
+        { match: /\b(biryani|mughlai|kebab)\b/, keywords: ['biryani', 'mughlai', 'kebab'] },
+        { match: /\b(dosa|idli|south indian)\b/, keywords: ['dosa', 'south indian', 'breakfast'] },
+        { match: /\b(north indian|thali)\b/, keywords: ['north indian'] }
+      ];
+      const category = categories.find(item => item.match.test(text));
+      const nonVeg = /\b(non[\s-]?veg|chicken|mutton|meat)\b/.test(text);
+      const vegetarian = !nonVeg && /\b(veg|vegetarian|plant[\s-]?based)\b/.test(text);
+      const budgetMatch = text.match(/(?:under|below|less than|within|budget(?: of)?|₹|rs\.?)\s*₹?\s*(\d{2,5})/i)
+        || text.match(/\b(\d{2,5})\s*(?:max|budget)\b/i);
+      const ratingMatch = text.match(/\b(4(?:\.\d)?)\s*\+/);
+      const sortByPrice = /\b(cheapest|lowest price|most affordable|budget|under|below)\b/.test(text) || Boolean(budgetMatch);
+      const sortByReviews = /\b(most reviewed|most popular|popular)\b/.test(text);
+      return {
+        keywords: category?.keywords ?? [],
+        vegetarian,
+        nonVeg,
+        maxPrice: budgetMatch ? Number(budgetMatch[1]) : null,
+        minRating: ratingMatch ? Number(ratingMatch[1]) : 0,
+        sortByPrice,
+        sortByReviews
+      };
+    }
+
+    function recommendRestaurants(query) {
+      const preferences = getFoodPreferences(query);
+      const candidates = restaurantCards.map(card => {
+        const ratingText = card.querySelector('.bg-green-700').textContent;
+        return {
+          card,
+          name: card.querySelector('h3').textContent,
+          item: card.dataset.item,
+          keywords: card.dataset.keywords.split(' '),
+          price: Number(card.dataset.price),
+          rating: Number(ratingText.replace(/[^\d.]/g, '')),
+          reviews: Number(card.dataset.reviews),
+          eta: Number(card.dataset.eta),
+          vegetarian: card.dataset.tags.split(' ').includes('veg')
+        };
+      }).filter(item => {
+        const searchable = `${item.keywords.join(' ')} ${item.card.dataset.cuisine} ${item.name}`.toLowerCase();
+        const matchesFood = !preferences.keywords.length || preferences.keywords.some(keyword => searchable.includes(keyword));
+        const matchesDiet = !preferences.vegetarian || item.vegetarian;
+        const matchesNonVeg = !preferences.nonVeg || !item.vegetarian;
+        const matchesBudget = preferences.maxPrice === null || item.price <= preferences.maxPrice;
+        const matchesRating = item.rating >= preferences.minRating;
+        return matchesFood && matchesDiet && matchesNonVeg && matchesBudget && matchesRating;
+      });
+
+      candidates.sort((a, b) => {
+        if (preferences.sortByReviews) return b.reviews - a.reviews || b.rating - a.rating;
+        if (preferences.sortByPrice) return a.price - b.price || b.rating - a.rating;
+        return b.rating - a.rating || b.reviews - a.reviews || a.price - b.price;
+      });
+      return { candidates, preferences };
+    }
+
+    function addRecommendationResults(candidates, preferences) {
+      const resultList = document.createElement('div');
+      resultList.className = 'space-y-2';
+      candidates.forEach((item, index) => {
+        const result = document.createElement('article');
+        result.className = 'rounded-xl border border-slate-200 bg-white p-3';
+        const heading = document.createElement('div');
+        heading.className = 'flex items-start justify-between gap-2';
+        const name = document.createElement('h3');
+        name.className = 'text-xs font-extrabold text-ink';
+        name.textContent = `${index === 0 ? '✦ ' : ''}${item.name}`;
+        const price = document.createElement('span');
+        price.className = 'shrink-0 rounded-full bg-orange-50 px-2 py-1 text-[10px] font-extrabold text-swiggy';
+        price.textContent = `₹${item.price}`;
+        heading.append(name, price);
+        result.appendChild(heading);
+
+        const dish = document.createElement('p');
+        dish.className = 'mt-1 text-[10px] text-slate-500';
+        dish.textContent = `Sample pick: ${item.item}`;
+        result.appendChild(dish);
+
+        const stats = document.createElement('p');
+        stats.className = 'mt-2 text-[10px] font-semibold text-slate-600';
+        stats.textContent = `★ ${item.rating.toFixed(1)}  ·  ${item.reviews.toLocaleString('en-IN')} demo reviews  ·  ${item.eta} min`;
+        result.appendChild(stats);
+
+        const viewButton = document.createElement('button');
+        viewButton.type = 'button';
+        viewButton.className = 'mt-2 text-[10px] font-extrabold text-swiggy hover:underline';
+        viewButton.textContent = 'View restaurant →';
+        viewButton.addEventListener('click', () => {
+          searchQuery = '';
+          desktopSearch.value = '';
+          mobileSearchInput.value = '';
+          activeFilter = 'all';
+          document.querySelectorAll('.filter-chip').forEach(chip => {
+            const isAll = chip.dataset.filter === 'all';
+            chip.classList.toggle('active', isAll);
+            chip.classList.toggle('border-ink', isAll);
+            chip.classList.toggle('bg-ink', isAll);
+            chip.classList.toggle('text-white', isAll);
+            chip.classList.toggle('border-slate-200', !isAll);
+            chip.classList.toggle('text-slate-600', !isAll);
+          });
+          updateRestaurants();
+          setAssistantOpen(false);
+          item.card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          item.card.classList.add('!border-swiggy', 'ring-2', 'ring-orange-100');
+          window.setTimeout(() => item.card.classList.remove('!border-swiggy', 'ring-2', 'ring-orange-100'), 1800);
+        });
+        result.appendChild(viewButton);
+        resultList.appendChild(result);
+      });
+      chatLog.appendChild(resultList);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function submitFoodRequest(query) {
+      const request = query.trim();
+      if (!request) return;
+      addChatMessage(request, 'user');
+      const { candidates, preferences } = recommendRestaurants(request);
+      if (!candidates.length) {
+        const constraints = [];
+        if (preferences.keywords.length) constraints.push('that craving');
+        if (preferences.vegetarian) constraints.push('vegetarian options');
+        if (preferences.maxPrice !== null) constraints.push(`under ₹${preferences.maxPrice}`);
+        if (preferences.minRating) constraints.push(`rated ${preferences.minRating}+`);
+        addChatMessage(`I couldn't find a match for ${constraints.join(', ') || 'that request'} in this small demo menu. Try a broader budget or another craving.`, 'assistant');
+      } else {
+        const sortLabel = preferences.sortByReviews ? 'most demo reviews' : preferences.sortByPrice ? 'lowest menu price first' : 'rating and review signal';
+        addChatMessage(`I found ${candidates.length} ${candidates.length === 1 ? 'match' : 'matches'}, sorted by ${sortLabel}. Menu prices shown are sample dish prices; delivery fees are not included.`, 'assistant');
+        addRecommendationResults(candidates, preferences);
+      }
+      chatInput.value = '';
+    }
+
+    document.getElementById('food-chat-form').addEventListener('submit', event => {
+      event.preventDefault();
+      submitFoodRequest(chatInput.value);
+    });
+    document.querySelectorAll('.assistant-prompt').forEach(button => button.addEventListener('click', () => submitFoodRequest(button.textContent)));
+    document.querySelectorAll('.mobile-nav-link').forEach(link => link.addEventListener('click', () => {
+      if (link.dataset.nav) {
+        document.querySelectorAll('.mobile-nav-link').forEach(item => item.classList.remove('text-swiggy'));
+        document.querySelectorAll('.mobile-nav-link').forEach(item => item.classList.add('text-slate-400'));
+        link.classList.add('text-swiggy');
+        link.classList.remove('text-slate-400');
+      }
+      if (link.dataset.nav === 'Account') showToast('Sign in is coming soon.');
+    }));
+  </script>
+</body>
+</html>
