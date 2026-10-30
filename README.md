@@ -9,7 +9,7 @@ Built by **Aryan Tomar** · CSE (AI), 5th semester · MIET
 [![HTML](https://img.shields.io/badge/HTML5-markup-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-CDN-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E?logo=javascript&logoColor=222)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![Responsive](https://img.shields.io/badge/Layout-responsive-16A34A)](#responsive-design)
+[![Responsive](https://img.shields.io/badge/Layout-responsive-16A34A)](#browser-support-and-responsive-design)
 [![License](https://img.shields.io/badge/License-not%20specified-lightgrey)](#project-notes)
 
 </div>
@@ -68,6 +68,7 @@ A production implementation would need delivery-zone eligibility, capacity and c
 
 ```text
 .
+├── .gitignore      # Local editor files, environment files, and assignment brief
 ├── index.html       # Complete landing page, styles, and browser interactions
 └── README.md        # Project overview and getting-started guide
 ```
